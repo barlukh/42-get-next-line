@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/15 12:31:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/15 13:18:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*get_next_line(int fd)
 {
+	size_t		i;
 	static char	buffer[BUFFER_SIZE];
 	ssize_t		bytes_read;
-	int			i;
-	int			j;
-	char 		*line;
+	size_t		len;
+	char 		*substr;
 
 	i = 0;
 	while (buffer[i] == '\0' && i < BUFFER_SIZE)
@@ -32,13 +32,15 @@ char	*get_next_line(int fd)
 	}
 	while (buffer[i] == '\0' && i < BUFFER_SIZE)
 		i++;
-	j = ft_strchr(&buffer[i], '\n') - &buffer[i] + 1;
-	line = ft_substr(&buffer[i], 0, j);
-	while (j > 0 && i < BUFFER_SIZE)
+	len = ft_strchr(&buffer[i], '\n') - &buffer[i] + 1;
+	substr = create_substr(&buffer[i], len);
+	if (!substr)
+		return (NULL);
+	while (len > 0 && i < BUFFER_SIZE)
 	{
 		buffer[i] = '\0';
 		i++;
-		j--;
+		len--;
 	}
-	return (line);
+	return (substr);
 }
