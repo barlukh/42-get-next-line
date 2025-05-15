@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:53 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/14 10:44:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/14 14:47:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
  * @return Pointer to the destination memory area
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+/** Scans a string for the first instance of 'c'
+ * @param s String to search
+ * @param c Character to search for, passed as an int
+ * @return Pointer to the matching location, 'NULL' if no match
+ */
+char	*ft_strchr(const char *s, int c);
 
 /** Duplicates a string using dynamic memory allocation
  * @param s String to duplicate

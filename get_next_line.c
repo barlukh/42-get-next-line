@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/14 11:58:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/15 12:31:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,31 @@
 
 char	*get_next_line(int fd)
 {
-	char		buffer[BUFFER_SIZE];
-	static char	*cache;
+	static char	buffer[BUFFER_SIZE];
 	ssize_t		bytes_read;
-	ssize_t		i;
-	char		*ret;
+	int			i;
+	int			j;
+	char 		*line;
 
-	if (cache == NULL)
+	i = 0;
+	while (buffer[i] == '\0' && i < BUFFER_SIZE)
+		i++;
+	if (i == BUFFER_SIZE)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == 0 || bytes_read == -1)
 			return (NULL);
-		cache = ft_strdup(buffer);
+		i = 0;
 	}
-
-	i = 0;
-	while (*cache != '\n' && i < bytes_read)
-	{
-		cache++;
+	while (buffer[i] == '\0' && i < BUFFER_SIZE)
 		i++;
+	j = ft_strchr(&buffer[i], '\n') - &buffer[i] + 1;
+	line = ft_substr(&buffer[i], 0, j);
+	while (j > 0 && i < BUFFER_SIZE)
+	{
+		buffer[i] = '\0';
+		i++;
+		j--;
 	}
-	ret = ft_substr(cache - i, 0, i + 1);
-	cache++;
-	return (ret);
+	return (line);
 }
