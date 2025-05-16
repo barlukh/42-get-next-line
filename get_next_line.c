@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/15 13:18:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/16 16:47:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,30 @@
 
 char	*get_next_line(int fd)
 {
-	size_t		i;
+	ssize_t		read_bytes;
 	static char	buffer[BUFFER_SIZE];
-	ssize_t		bytes_read;
-	size_t		len;
-	char 		*substr;
+	// char		*cache;
+	// size_t		len;
+	// char		*linebreak;
+	// char 		*substr;
+	t_tools tools;
 
-	i = 0;
-	while (buffer[i] == '\0' && i < BUFFER_SIZE)
-		i++;
-	if (i == BUFFER_SIZE)
+	read_bytes = 1;
+	cache = ft_strdup(buffer);
+	// linebreak = ft_strchr(cache, '\n');
+	// if (!linebreak)
+	while (read_bytes > 0)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == 0 || bytes_read == -1)
+		read_bytes = read(fd, buffer, BUFFER_SIZE);
+		if (read_bytes < 1)   // why 1
 			return (NULL);
-		i = 0;
+		cache = ft_strjoin(cache, buffer);   // free cache
+		linebreak = ft_strchr(cache, '\n');
+		if (linebreak != NULL)
+			break ;
 	}
-	while (buffer[i] == '\0' && i < BUFFER_SIZE)
-		i++;
-	len = ft_strchr(&buffer[i], '\n') - &buffer[i] + 1;
-	substr = create_substr(&buffer[i], len);
-	if (!substr)
-		return (NULL);
-	while (len > 0 && i < BUFFER_SIZE)
-	{
-		buffer[i] = '\0';
-		i++;
-		len--;
-	}
+	len = linebreak - cache;
+	substr = create_substr(cache, len + 1);
+	ft_memcpy(buffer, linebreak + 1, ft_strlen(linebreak + 1) + 1); // study this
 	return (substr);
 }
