@@ -6,28 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/19 09:28:27 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/19 13:09:01 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-
-char	*ft_strdup(const char *s)
-{
-	size_t	s_len;
-	char	*ptr;
-	size_t	i;
-
-	s_len = ft_strlen(s);
-	ptr = malloc(sizeof(char) * (s_len + 1));
-	if (ptr == NULL)
-		return (NULL);
-	i = 0;
-	ft_memcpy(ptr, s, s_len);
-	ptr[s_len] = '\0';
-	return (ptr);
-}
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
@@ -56,23 +39,22 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *cache, char *buffer)
 {
-	size_t	s1_len;
-	size_t	s2_len;
-	char	*s;
+	size_t	cache_len;
+	char	*new_cache;
 
-	if (!s1 || !s2)
+	if (!cache || !buffer)
 		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	s = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!s)
+	cache_len = ft_strlen(cache);
+	new_cache = malloc(sizeof(char) * (cache_len + BUFFER_SIZE + 1));
+	if (!new_cache)
 		return (NULL);
-	ft_memcpy(s, s1, s1_len);
-	ft_memcpy(s + s1_len, s2, s2_len);
-	s[s1_len + s2_len] = '\0';
-	return (s);
+	ft_memcpy(new_cache, cache, cache_len);
+	free(cache);
+	ft_memcpy(new_cache + cache_len, buffer, BUFFER_SIZE);
+	new_cache[cache_len + BUFFER_SIZE] = '\0';
+	return (new_cache);
 }
 
 char	*ft_strchr(const char *str, int c)
@@ -91,22 +73,22 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*new_substr(char const *str, size_t len)
+char	*new_substr(char const *cache, size_t len)
 {
 	char	*substr;
 	size_t	i;
 
-	if (!str)
+	if (!cache)
 		return (NULL);
-	substr = malloc(sizeof(char) * (len + 1));
+	substr = malloc(sizeof(char) * (len + 2));
 	if (!substr)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < len + 1)
 	{
-		substr[i] = str[i];
+		substr[i] = cache[i];
 		i++;
 	}
-	substr[len] = '\0';
+	substr[i] = '\0';
 	return (substr);
 }

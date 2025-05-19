@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:53 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/19 09:30:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/19 13:09:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #  define BUFFER_SIZE 1000
 # endif
 
+# define true 1
+
 typedef struct s_tools
 {
 	ssize_t	read_bytes;
@@ -28,12 +30,6 @@ typedef struct s_tools
 	size_t	len;
 	char 	*substr;
 } t_tools;
-
-/** Duplicates a string using dynamic memory allocation
- * @param s String to duplicate
- * @return Pointer to the duplicated string, 'NULL' if the allocation fails
- */
-char	*ft_strdup(const char *s);
 
 /** Copies bytes from one memory area to another; the areas must not overlap
  * @param dest Pointer to the destination memory area
@@ -54,7 +50,7 @@ size_t	ft_strlen(const char *s);
  * @param s2 Second string
  * @return Pointer to the new string, 'NULL' if the allocation fails
  */
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 /** Scans a string for the first instance of 'c'
  * @param s String to search
@@ -64,11 +60,11 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 
 /** Creates a substring using dynamic memory allocation
- * @param s String to make the substring from
+ * @param cache String to make the substring from
  * @param len Length of the substring
  * @return Pointer to the new substring, 'NULL' if the allocation fails
  */
-char	*new_substr(char const *s, size_t len);
+char	*new_substr(char const *cache, size_t len);
 
 /** Reads and returns a line from a file pointed to by a file descriptor
  * @param fd File descriptor to read from
