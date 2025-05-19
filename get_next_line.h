@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:53 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/16 16:45:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/19 09:30:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1000
 # endif
 
 typedef struct s_tools
 {
-	char		*cache;
-	size_t		len;
-	char		*linebreak;
-	char 		*substr;
-} t_tools
+	ssize_t	read_bytes;
+	char	*cache;
+	char	*linebreak;
+	size_t	len;
+	char 	*substr;
+} t_tools;
 
 /** Duplicates a string using dynamic memory allocation
  * @param s String to duplicate
@@ -55,8 +56,6 @@ size_t	ft_strlen(const char *s);
  */
 char	*ft_strjoin(char const *s1, char const *s2);
 
-void	*check_buffer(char *buffer, size_t *i, int fd);
-
 /** Scans a string for the first instance of 'c'
  * @param s String to search
  * @param c Character to search for, passed as an int
@@ -69,7 +68,7 @@ char	*ft_strchr(const char *s, int c);
  * @param len Length of the substring
  * @return Pointer to the new substring, 'NULL' if the allocation fails
  */
-char	*create_substr(char const *s, size_t len);
+char	*new_substr(char const *s, size_t len);
 
 /** Reads and returns a line from a file pointed to by a file descriptor
  * @param fd File descriptor to read from

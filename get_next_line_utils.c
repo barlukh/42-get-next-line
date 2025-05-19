@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/16 16:13:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/19 09:28:27 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*create_substr(char const *str, size_t len)
+char	*new_substr(char const *str, size_t len)
 {
 	char	*substr;
 	size_t	i;

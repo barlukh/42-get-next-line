@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/16 16:47:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/19 09:29:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,25 @@
 
 char	*get_next_line(int fd)
 {
-	ssize_t		read_bytes;
 	static char	buffer[BUFFER_SIZE];
-	// char		*cache;
-	// size_t		len;
-	// char		*linebreak;
-	// char 		*substr;
-	t_tools tools;
+	t_tools var;
 
-	read_bytes = 1;
-	cache = ft_strdup(buffer);
-	// linebreak = ft_strchr(cache, '\n');
-	// if (!linebreak)
-	while (read_bytes > 0)
+	var.read_bytes = 1;
+	var.cache = ft_strdup(buffer);
+	var.linebreak = ft_strchr(var.cache, '\n');
+	if (!var.linebreak)
+	while (var.read_bytes > 0)
 	{
-		read_bytes = read(fd, buffer, BUFFER_SIZE);
-		if (read_bytes < 1)   // why 1
+		var.read_bytes = read(fd, buffer, BUFFER_SIZE);
+		if (var.read_bytes < 1)
 			return (NULL);
-		cache = ft_strjoin(cache, buffer);   // free cache
-		linebreak = ft_strchr(cache, '\n');
-		if (linebreak != NULL)
+		var.cache = ft_strjoin(var.cache, buffer);
+		var.linebreak = ft_strchr(var.cache, '\n');
+		if (var.linebreak != NULL)
 			break ;
 	}
-	len = linebreak - cache;
-	substr = create_substr(cache, len + 1);
-	ft_memcpy(buffer, linebreak + 1, ft_strlen(linebreak + 1) + 1); // study this
-	return (substr);
+	var.len = var.linebreak - var.cache;
+	var.substr = new_substr(var.cache, var.len + 1);
+	ft_memcpy(buffer, var.linebreak + 1, ft_strlen(var.linebreak + 1) + 1);
+	return (var.substr);
 }
