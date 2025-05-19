@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:53 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/19 13:09:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/19 14:06:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_strchr(const char *s, int c);
  * @param len Length of the substring
  * @return Pointer to the new substring, 'NULL' if the allocation fails
  */
-char	*new_substr(char const *cache, size_t len);
+char	*ft_substr(char const *str, size_t len);
 
 /** Reads and returns a line from a file pointed to by a file descriptor
  * @param fd File descriptor to read from

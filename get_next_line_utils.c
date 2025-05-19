@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/19 13:09:01 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/19 14:10:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ char	*ft_strjoin(char *cache, char *buffer)
 	if (!new_cache)
 		return (NULL);
 	ft_memcpy(new_cache, cache, cache_len);
-	free(cache);
 	ft_memcpy(new_cache + cache_len, buffer, BUFFER_SIZE);
 	new_cache[cache_len + BUFFER_SIZE] = '\0';
-	return (new_cache);
+	return (free(cache), new_cache);
 }
 
 char	*ft_strchr(const char *str, int c)
@@ -73,20 +72,20 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*new_substr(char const *cache, size_t len)
+char	*ft_substr(char const *str, size_t len)
 {
 	char	*substr;
 	size_t	i;
 
-	if (!cache)
+	if (!str)
 		return (NULL);
-	substr = malloc(sizeof(char) * (len + 2));
+	substr = malloc(sizeof(char) * (len + 1));
 	if (!substr)
 		return (NULL);
 	i = 0;
-	while (i < len + 1)
+	while (i < len)
 	{
-		substr[i] = cache[i];
+		substr[i] = str[i];
 		i++;
 	}
 	substr[i] = '\0';
