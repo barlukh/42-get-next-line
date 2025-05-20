@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/20 13:27:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/20 13:50:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ char	*get_next_line(int fd)
 		var.len++;
 	var.cache = ft_substr(buffer, var.len);
 	if (!var.cache)
-		return (free(var.cache), NULL);
+		return (NULL);
 	get_next_line_read(fd, buffer, &var);
 	if (!var.cache)
-		return (free(var.cache), NULL);
+		return (NULL);
 	var.substr = ft_substr(var.cache, var.linebreak - var.cache + 1);
 	var.len = 0;
 	while (var.linebreak[var.len + 1] != '\0')
