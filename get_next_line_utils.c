@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/20 10:31:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/20 13:25:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ void	get_next_line_read(int fd, char *buffer, t_struct *var)
 				var->linebreak = ft_strchr(var->cache, '\0') - 1;
 				return ;
 			}
-			free(var->cache);
 			var->cache = NULL;
 			return ;
 		}
 		var->cache = ft_strjoin(var->cache, buffer, var);
 		if (!var->cache)
+		{
+			var->cache = NULL;
 			return ;
+		}
 		var->linebreak = ft_strchr(var->cache, '\n');
 	}
 }
