@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/19 16:53:45 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/20 07:53:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE];
-	t_tools		var;
+	t_struct	var;
 
 	var.cache = ft_substr(buffer, ft_strlen(buffer));
+	if (!var.cache)
+		return (NULL);
 	var.linebreak = ft_strchr(var.cache, '\n');
 	while (var.linebreak == NULL)
 	{
@@ -26,12 +28,12 @@ char	*get_next_line(int fd)
 		{
 			if (*var.cache)
 			{
-				var.linebreak = ft_strchr(var.cache, '\0');
+				var.linebreak = ft_strchr(var.cache, '\0') - 1;
 				break ;
 			}
 			return (free(var.cache), NULL);
 		}
-		var.cache = ft_strjoin(var.cache, buffer);
+		var.cache = ft_strjoin(var.cache, buffer, &var);
 		if (!var.cache)
 			return (NULL);
 		var.linebreak = ft_strchr(var.cache, '\n');

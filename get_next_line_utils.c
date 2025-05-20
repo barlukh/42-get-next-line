@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/19 14:10:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/20 08:10:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char *cache, char *buffer)
+char	*ft_strjoin(char *cache, char *buffer, t_struct *var)
 {
 	size_t	cache_len;
 	char	*new_cache;
@@ -47,37 +47,37 @@ char	*ft_strjoin(char *cache, char *buffer)
 	if (!cache || !buffer)
 		return (NULL);
 	cache_len = ft_strlen(cache);
-	new_cache = malloc(sizeof(char) * (cache_len + BUFFER_SIZE + 1));
+	new_cache = malloc(sizeof(char) * (cache_len + var->read_bytes + 1));
 	if (!new_cache)
 		return (NULL);
 	ft_memcpy(new_cache, cache, cache_len);
-	ft_memcpy(new_cache + cache_len, buffer, BUFFER_SIZE);
-	new_cache[cache_len + BUFFER_SIZE] = '\0';
+	ft_memcpy(new_cache + cache_len, buffer, var->read_bytes);
+	new_cache[cache_len + var->read_bytes] = '\0';
 	return (free(cache), new_cache);
 }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (s[i] != '\0')
 	{
-		if (str[i] == (unsigned char)c)
-			return ((char *)&str[i]);
+		if (s[i] == (unsigned char)c)
+			return ((char *)&s[i]);
 		i++;
 	}
 	if ((unsigned char)c == '\0')
-		return ((char *)&str[i]);
+		return ((char *)&s[i]);
 	return (NULL);
 }
 
-char	*ft_substr(char const *str, size_t len)
+char	*ft_substr(char const *s, size_t len)
 {
 	char	*substr;
 	size_t	i;
 
-	if (!str)
+	if (!s)
 		return (NULL);
 	substr = malloc(sizeof(char) * (len + 1));
 	if (!substr)
@@ -85,7 +85,7 @@ char	*ft_substr(char const *str, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		substr[i] = str[i];
+		substr[i] = s[i];
 		i++;
 	}
 	substr[i] = '\0';
