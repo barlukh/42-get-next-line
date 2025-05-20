@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/20 09:17:45 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/20 10:31:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	get_next_line_read(int fd, char *buffer, t_struct *var)
 {
+	var->linebreak = ft_strchr(var->cache, '\n');
 	while (var->linebreak == NULL)
 	{
 		var->read_bytes = read(fd, buffer, BUFFER_SIZE);

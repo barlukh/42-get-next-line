@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/20 09:24:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/20 10:47:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
+	static char	*buffer;
 	t_struct	var;
 
+	if (!buffer)
+	{
+		buffer = malloc(BUFFER_SIZE);
+		if (!buffer)
+			return (NULL);
+		buffer[0] = '\0';
+	}
 	var.len = 0;
 	while (buffer[var.len] != '\0')
 		var.len++;
 	var.cache = ft_substr(buffer, var.len);
 	if (!var.cache)
 		return (NULL);
-	var.linebreak = ft_strchr(var.cache, '\n');
 	get_next_line_read(fd, buffer, &var);
 	if (!var.cache)
 		return (NULL);
