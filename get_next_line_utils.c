@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 12:03:57 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 13:19:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,15 @@ void	get_next_line_read(int fd, char *buffer, t_struct *var)
 	while (var->br == NULL)
 	{
 		var->read_bytes = read(fd, buffer, BUFFER_SIZE);
-		if (var->read_bytes < 1)
+		if (var->read_bytes <= 0)
 		{
-			if (*var->cache)
+			if (var->read_bytes == 0 && *var->cache)
 			{
 				var->br = ft_strchr(var->cache, '\0') - 1;
 				return ;
 			}
 			free(var->cache);
 			var->cache = NULL;
-			return ;
 		}
 		var->cache = ft_strjoin(var->cache, buffer, var);
 		if (!var->cache)

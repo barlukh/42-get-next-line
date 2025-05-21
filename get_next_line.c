@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 11:28:24 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 14:42:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ char	*get_next_line(int fd)
 	}
 	var.cache = ft_substr(buffer, ft_strchr(buffer, '\0') - buffer);
 	if (!var.cache)
-		return (NULL);
+		return (free(buffer), buffer = NULL);
 	get_next_line_read(fd, buffer, &var);
 	if (!var.cache)
-		return (NULL);
+		return (free(buffer), buffer = NULL);
 	var.substr = ft_substr(var.cache, var.br - var.cache + 1);
 	if (!var.substr)
-		return (free(var.cache), NULL);
+		return (free(var.cache), var.cache = NULL);
 	ft_memcpy(buffer, var.br + 1, ft_strchr(var.br + 1, '\0') - var.br);
 	return (free(var.cache), var.substr);
 }
