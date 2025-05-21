@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:44:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 19:53:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 20:30:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	get_next_line_read(int fd, char **buffer, t_struct *var)
+void	line_read(int fd, char **buffer, t_struct *var)
 {
 	var->br = ft_strchr(var->cache, '\n');
 	while (var->br == NULL)
@@ -99,13 +99,13 @@ char	*ft_strjoin(char *cache, char *buffer, t_struct *var)
 
 char	*ft_substr(char **s, size_t len)
 {
-	char	*substr;
+	char	*ft_substr;
 	size_t	i;
 
 	if (!s)
 		return (NULL);
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
+	ft_substr = malloc(sizeof(char) * (len + 1));
+	if (!ft_substr)
 	{
 		free(*s);
 		*s = NULL;
@@ -114,9 +114,9 @@ char	*ft_substr(char **s, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		substr[i] = (*s)[i];
+		ft_substr[i] = (*s)[i];
 		i++;
 	}
-	substr[i] = '\0';
-	return (substr);
+	ft_substr[i] = '\0';
+	return (ft_substr);
 }

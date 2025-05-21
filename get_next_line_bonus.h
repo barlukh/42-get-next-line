@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:44:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 19:54:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 20:31:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_next_line(int fd);
  * @param var Struct storing all helper variables
  * @return None (return ;), 'NULL' on error
  */
-void	get_next_line_read(int fd, char **buffer, t_struct *var);
+void	line_read(int fd, char **buffer, t_struct *var);
 
 /** Copies bytes from one memory area to another; the areas must not overlap
  * @param dest Pointer to the destination memory area

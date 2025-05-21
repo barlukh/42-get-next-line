@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:44:14 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 20:19:52 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 20:31:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[MAX_FD];
+	static char	*buf[MAX_FD];
 	t_struct	var;
 
-	if (!buffer[fd])
+	if (!buf[fd])
 	{
-		buffer[fd] = malloc(BUFFER_SIZE);
-		if (!buffer[fd])
+		buf[fd] = malloc(BUFFER_SIZE);
+		if (!buf[fd])
 			return (NULL);
-		buffer[fd][0] = '\0';
+		buf[fd][0] = '\0';
 	}
-	var.cache = ft_substr(&buffer[fd], ft_strchr(buffer[fd], '\0') - buffer[fd]);
+	var.cache = ft_substr(&buf[fd], ft_strchr(buf[fd], '\0') - buf[fd]);
 	if (!var.cache)
 		return (NULL);
-	get_next_line_read(fd, &buffer[fd], &var);
+	line_read(fd, &buf[fd], &var);
 	if (!var.cache)
 		return (NULL);
 	var.substr = ft_substr(&var.cache, var.br - var.cache + 1);
 	if (!var.substr)
 		return (NULL);
-	ft_memcpy(buffer[fd], var.br + 1, ft_strchr(var.br + 1, '\0') - var.br);
+	ft_memcpy(buf[fd], var.br + 1, ft_strchr(var.br + 1, '\0') - var.br);
 	return (free(var.cache), var.substr);
 }
