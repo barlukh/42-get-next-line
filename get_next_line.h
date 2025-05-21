@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:53 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/20 09:28:42 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 11:00:42 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@
 
 typedef struct s_struct
 {
-	size_t	len;
 	char	*cache;
-	char	*linebreak;
+	char	*br;
 	ssize_t	read_bytes;
 	char	*substr;
 }	t_struct;
