@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:44:14 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 11:06:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 11:15:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 		buffer[fd][0] = '\0';
 	}
-	var.cache = ft_substr(buffer, ft_strchr(buffer[fd], '\0') - buffer[fd]);
+	var.cache = ft_substr(buffer[fd], ft_strchr(buffer[fd], '\0') - buffer[fd]);
 	if (!var.cache)
 		return (NULL);
 	get_next_line_read(fd, buffer[fd], &var);
