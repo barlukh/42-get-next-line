@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 11:00:42 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 12:03:57 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ char	*ft_strjoin(char *cache, char *buffer, t_struct *var)
 	char	*new_cache;
 
 	if (!cache || !buffer)
-		return (NULL);
+		return (free(cache), NULL);
 	cache_len = 0;
 	while (cache[cache_len] != '\0')
 		cache_len++;
 	new_cache = malloc(sizeof(char) * (cache_len + var->read_bytes + 1));
 	if (!new_cache)
-		return (NULL);
+		return (free(cache), NULL);
 	ft_memcpy(new_cache, cache, cache_len);
 	ft_memcpy(new_cache + cache_len, buffer, var->read_bytes);
 	new_cache[cache_len + var->read_bytes] = '\0';
