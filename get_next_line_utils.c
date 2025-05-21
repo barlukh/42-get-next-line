@@ -6,18 +6,18 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 13:19:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/21 19:46:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	get_next_line_read(int fd, char *buffer, t_struct *var)
+void	get_next_line_read(int fd, char **buffer, t_struct *var)
 {
 	var->br = ft_strchr(var->cache, '\n');
 	while (var->br == NULL)
 	{
-		var->read_bytes = read(fd, buffer, BUFFER_SIZE);
+		var->read_bytes = read(fd, *buffer, BUFFER_SIZE);
 		if (var->read_bytes <= 0)
 		{
 			if (var->read_bytes == 0 && *var->cache)
@@ -25,10 +25,13 @@ void	get_next_line_read(int fd, char *buffer, t_struct *var)
 				var->br = ft_strchr(var->cache, '\0') - 1;
 				return ;
 			}
+			free(*buffer);
+			*buffer = NULL;
 			free(var->cache);
 			var->cache = NULL;
+			return ;
 		}
-		var->cache = ft_strjoin(var->cache, buffer, var);
+		var->cache = ft_strjoin(var->cache, *buffer, var);
 		if (!var->cache)
 			return ;
 		var->br = ft_strchr(var->cache, '\n');
@@ -74,20 +77,27 @@ char	*ft_strjoin(char *cache, char *buffer, t_struct *var)
 	char	*new_cache;
 
 	if (!cache || !buffer)
-		return (free(cache), NULL);
+	{
+		free(cache);
+		return (NULL);
+	}
 	cache_len = 0;
 	while (cache[cache_len] != '\0')
 		cache_len++;
 	new_cache = malloc(sizeof(char) * (cache_len + var->read_bytes + 1));
 	if (!new_cache)
-		return (free(cache), NULL);
+	{
+		free(cache);
+		return (NULL);
+	}
 	ft_memcpy(new_cache, cache, cache_len);
 	ft_memcpy(new_cache + cache_len, buffer, var->read_bytes);
 	new_cache[cache_len + var->read_bytes] = '\0';
-	return (free(cache), new_cache);
+	free(cache);
+	return (new_cache);
 }
 
-char	*ft_substr(char const *s, size_t len)
+char	*ft_substr(char **s, size_t len)
 {
 	char	*substr;
 	size_t	i;
@@ -96,11 +106,15 @@ char	*ft_substr(char const *s, size_t len)
 		return (NULL);
 	substr = malloc(sizeof(char) * (len + 1));
 	if (!substr)
+	{
+		free(*s);
+		*s = NULL;
 		return (NULL);
+	}
 	i = 0;
 	while (i < len)
 	{
-		substr[i] = s[i];
+		substr[i] = (*s)[i];
 		i++;
 	}
 	substr[i] = '\0';
