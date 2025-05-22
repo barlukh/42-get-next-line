@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:53 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/21 20:30:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/05/22 10:46:22 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ char	*get_next_line(int fd);
 
 /** Checks for a newline character or end of file, reads into the buffer
  * @param fd File descriptor to read data from
- * @param buffer Buffer to fill by the read call
+ * @param buf Pointer to the buffer to fill by the read call
  * @param var Struct storing all helper variables
- * @return None (return ;), 'NULL' on error
+ * @return Pointer to the newline or end of file, 'NULL' on error
  */
-void	line_read(int fd, char **buffer, t_struct *var);
+char	*line_read(int fd, char **buf, t_struct *var);
 
 /** Copies bytes from one memory area to another; the areas must not overlap
  * @param dest Pointer to the destination memory area
@@ -58,17 +58,16 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	*ft_strchr(const char *s, int c);
 
 /** Concatenates two strings using dynamic memory allocation
- * @param cache String stored in cache (remnant of a previous read call)
- * @param buffer String in the buffer from the most recent read call
+ * @param buf String in the buffer from the most recent read call
  * @param var Struct storing all helper variables
  * @return Pointer to the new string, 'NULL' if the allocation fails
  */
-char	*ft_strjoin(char *cache, char *buffer, t_struct *var);
+char	*ft_strjoin(char *buf, t_struct *var);
 
 /** Creates a substring using dynamic memory allocation
- * @param s Source string for the substring
+ * @param s Pointer to the source string for the substring
  * @param len Length of the substring
- * @return Pointer to the new substring, 'NULL' if the allocation fails
+ * @return New substring, 'NULL' if the allocation fails
  */
 char	*ft_substr(char **s, size_t len);
 
