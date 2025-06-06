@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:17:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/05/22 10:54:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/06/06 11:28:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ char	*ft_strjoin(char *buf, t_struct *var)
 
 char	*ft_substr(char **s, size_t len)
 {
-	char	*ft_substr;
+	char	*substr;
 	size_t	i;
 
 	if (!*s)
 		return (NULL);
-	ft_substr = malloc(sizeof(char) * (len + 1));
-	if (!ft_substr)
+	substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
 	{
 		free(*s);
 		*s = NULL;
@@ -111,9 +111,9 @@ char	*ft_substr(char **s, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		ft_substr[i] = (*s)[i];
+		substr[i] = (*s)[i];
 		i++;
 	}
-	ft_substr[i] = '\0';
-	return (ft_substr);
+	substr[i] = '\0';
+	return (substr);
 }
